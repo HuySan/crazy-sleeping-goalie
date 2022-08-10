@@ -9,6 +9,8 @@ namespace Guns.Scripts
     {
         [SerializeField]
         private GameObject _ballPrefab;
+        [SerializeField]
+        private GameObject _bombPrefab;
 
         [SerializeField]
         [Range(0, 1000)]private float _force;
@@ -21,23 +23,24 @@ namespace Guns.Scripts
 
         public void Start()
         {
-            _shootingSystem = new ShootingSystem(_ballPrefab, _force);
+            _shootingSystem = new ShootingSystem(_ballPrefab, _bombPrefab, _force);
             _gunRotateSystem = new GunRotateSystem(_gunTransform);
 
             
 
-            StartCoroutine(DelaForSpawn(3));
+            StartCoroutine(DelayForSpawn(3));
         }
 
 
-        private IEnumerator DelaForSpawn(float time)
+        private IEnumerator DelayForSpawn(float time)
         {
             while (true)
             {
                 yield return new WaitForSeconds(0.4f);
                 _gunRotateSystem.Rotate();
                 yield return new WaitForSeconds(0.7f);
-                _shootingSystem.CreateBall(this.transform, _gunTransform.rotation);
+                _shootingSystem.CreateShell(this.transform, _gunTransform.rotation, this);
+                
             }
         }
     }

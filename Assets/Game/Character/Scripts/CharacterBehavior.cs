@@ -1,6 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
 using Character;
+using Flags;
 
 public class CharacterBehavior : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -12,7 +13,6 @@ public class CharacterBehavior : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void Start()
     {
         _transform = this.transform;
-
         _moveSystem = new MoveSystem(_transform);
         gameObject.GetComponent<Rigidbody>();
     }
